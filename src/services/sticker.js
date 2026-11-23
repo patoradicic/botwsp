@@ -122,7 +122,7 @@ export async function downloadToFile(url, dest) {
 
 async function runFfmpeg(args) {
   try {
-    await execFileAsync(config.ffmpegPath, ['-hide_banner', '-loglevel', 'error', '-y', ...args], {
+    await execFileAsync(config.ffmpegPath, ['-hide_banner', '-loglevel', 'error', '-threads', '1', '-y', ...args], {
       timeout: config.ffmpegTimeoutMs,
       killSignal: 'SIGKILL',
       maxBuffer: 10 * 1024 * 1024,
@@ -171,6 +171,7 @@ async function convertAnimated(input, output, attempt) {
     '-t', String(attempt.maxDuration), // recorta la entrada a los primeros N segundos
     '-i', input,
     '-vf', buildFilter(attempt),
+    '-threads', '1',
     '-an',
     '-c:v', 'libwebp',
     '-pix_fmt', 'yuva420p',
@@ -187,6 +188,7 @@ async function convertStatic(input, output, quality) {
   await runFfmpeg([
     '-i', input,
     '-vf', buildFilter(),
+    '-threads', '1',
     '-frames:v', '1',
     '-an',
     '-c:v', 'libwebp',

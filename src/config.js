@@ -55,6 +55,7 @@ function logLevel(name, fallback) {
 export const config = Object.freeze({
   port: int('PORT', 3000, { min: 1, max: 65535 }),
   authDir: path.resolve(ROOT_DIR, str('AUTH_DIR', './auth_info')),
+  mongodbUri: str('MONGODB_URI', ''),
   stickerPack: str('STICKER_PACK', 'X Stickers'),
   stickerAuthor: str('STICKER_AUTHOR', 'MiBot'),
   allowGroups: bool('ALLOW_GROUPS', false),
@@ -63,11 +64,11 @@ export const config = Object.freeze({
 
   tmpDir: path.join(ROOT_DIR, 'tmp'),
 
-  // Límites de seguridad
+  // Límites de seguridad (ajustados para Render Free Tier: 512 MB RAM)
   maxDownloadBytes: 25 * 1024 * 1024, // 25 MB
   fetchTimeoutMs: 30_000,
   ffmpegTimeoutMs: 30_000,
-  maxConcurrentConversions: 2,
+  maxConcurrentConversions: 1,
 
   // Sticker
   stickerSize: 512,

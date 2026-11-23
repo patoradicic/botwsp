@@ -1,0 +1,19 @@
+services:
+  bot:
+    build: .
+    container_name: x-sticker-bot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      AUTH_DIR: /app/auth_info
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    volumes:
+      # Sesión de WhatsApp persistente: sobrevive a reinicios y rebuilds
+      - auth_info:/app/auth_info
+    # Necesario para ver el QR la primera vez: docker compose logs -f bot
+    tty: true
+    stop_grace_period: 15s
+
+volumes:
+  auth_info:

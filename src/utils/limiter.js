@@ -27,12 +27,8 @@ export function createLimiter(max) {
       next();
     });
 
-  return Object.assign(run, {
-    get active() {
-      return active;
-    },
-    get pending() {
-      return queue.length;
-    },
+  return Object.defineProperties(run, {
+    active: { get: () => active, enumerable: true },
+    pending: { get: () => queue.length, enumerable: true },
   });
 }
