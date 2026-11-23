@@ -1,0 +1,25 @@
+{
+  "name": "x-sticker-bot",
+  "version": "1.0.0",
+  "description": "Bot de WhatsApp que convierte GIFs, videos e imágenes de X (Twitter) en stickers",
+  "type": "module",
+  "main": "src/index.js",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test:twitter": "node scripts/test-twitter.js",
+    "check": "node scripts/check-syntax.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "7.0.0-rc14",
+    "dotenv": "^18.0.10",
+    "node-webpmux": "^3.2.1",
+    "pino": "^10.4.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
